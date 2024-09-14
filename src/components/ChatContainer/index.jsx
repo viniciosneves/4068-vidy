@@ -3,6 +3,7 @@
 import ChatBubble from '../ChatBubble';
 import { ChatForm } from '../ChatForm';
 import { ChatHeader } from '../ChatHeader';
+import { Loader } from '../Loader';
 import styles from './container.module.css';
 import { useChat } from 'ai/react';
 
@@ -18,6 +19,10 @@ export const ChatContainer = () => {
                 {messages.map((msg, index) => (
                     <ChatBubble key={index} message={msg.content} isUser={msg.role === 'user'} />
                 ))}
+
+            </div>
+            <div>
+                <Loader />
             </div>
             <ChatForm
                 input={input}

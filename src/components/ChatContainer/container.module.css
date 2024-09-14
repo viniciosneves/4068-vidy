@@ -8,6 +8,5 @@
 
 .chat {
     flex-grow: 1;
-    overflow-y: scroll;
     width: 100%;
 }
