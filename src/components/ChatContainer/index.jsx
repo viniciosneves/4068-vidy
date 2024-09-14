@@ -10,7 +10,7 @@ import { useChat } from 'ai/react';
 
 export const ChatContainer = () => {
 
-    const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat()
+    const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, stop, reload } = useChat()
     const handleDelete = (id) => {
         setMessages(messages.filter(message => message.id !== id))
     }
@@ -29,6 +29,10 @@ export const ChatContainer = () => {
                 <Loader />
                 <StopButton onClick={stop} />
             </div>}
+            <button onClick={reload} disabled={isLoading}>
+                Gerar outra resposta
+            </button>
+
             <ChatForm
                 input={input}
                 handleInputChange={handleInputChange}
