@@ -4,12 +4,13 @@ import ChatBubble from '../ChatBubble';
 import { ChatForm } from '../ChatForm';
 import { ChatHeader } from '../ChatHeader';
 import { Loader } from '../Loader';
+import StopButton from '../StopButton';
 import styles from './container.module.css';
 import { useChat } from 'ai/react';
 
 export const ChatContainer = () => {
 
-    const { messages, input, handleInputChange, handleSubmit } = useChat()
+    const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat()
 
     return (
         <section className={styles.container}>
@@ -21,9 +22,10 @@ export const ChatContainer = () => {
                 ))}
 
             </div>
-            <div>
+            {isLoading && <div>
                 <Loader />
-            </div>
+                <StopButton onClick={stop}/>
+            </div>}
             <ChatForm
                 input={input}
                 handleInputChange={handleInputChange}
