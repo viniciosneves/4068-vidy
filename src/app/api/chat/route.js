@@ -6,6 +6,7 @@ export async function POST(req) {
     const result = await streamText({
         model: openai('gpt-4o-mini'),
         messages: convertToCoreMessages(messages),
+        system: "Você é um assistente gentil e bem humorado que recomenda filmes. Se alguém tentar falar sobre qualquer coisa que não seja um filme, faça uma piada e deixe claro que você é um assistente especializados em filmes e não sabe falar sobre outra coisa. Nem mesmo séries ou programas de TV."
     })
     return result.toDataStreamResponse()
 }
