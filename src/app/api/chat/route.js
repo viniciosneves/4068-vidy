@@ -1,8 +1,15 @@
 import { openai } from "@ai-sdk/openai";
+import { Ratelimit } from "@upstash/ratelimit";
 import { convertToCoreMessages, streamText } from "ai";
+import kv from '@vercel/kv';
 export const maxDuration = 1;
 
 let execucoes = 0;
+
+const ratelimit = new Ratelimit({
+    redis: kv,
+    limiter: Ratelimit.fixedWindow(5, '30s'),
+});
 
 export async function POST(req) {
     execucoes++
