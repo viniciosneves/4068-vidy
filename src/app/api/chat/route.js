@@ -4,20 +4,20 @@ import { convertToCoreMessages, streamText } from "ai";
 import kv from '@vercel/kv';
 export const maxDuration = 1;
 
-let execucoes = 0;
-
 const ratelimit = new Ratelimit({
     redis: kv,
     limiter: Ratelimit.fixedWindow(5, '30s'),
 });
 
 export async function POST(req) {
-    execucoes++
 
-    if (execucoes == 2) {
-        throw new Error("bora forçar um erro!");
-
+    const ip = req.ip ?? 'ip';
+    const { success } = await ratelimit.limit(ip);
+  
+    if (!success) {
+      return new Response('Ratelimited!', { status: 429 });
     }
+
     const { messages } = await req.json();
     const result = await streamText({
         model: openai('gpt-4o-mini'),
