@@ -1,7 +1,16 @@
 import { openai } from "@ai-sdk/openai";
 import { convertToCoreMessages, streamText } from "ai";
+export const maxDuration = 1;
+
+let execucoes = 0;
 
 export async function POST(req) {
+    execucoes++
+
+    if (execucoes == 2) {
+        throw new Error("bora forçar um erro!");
+
+    }
     const { messages } = await req.json();
     const result = await streamText({
         model: openai('gpt-4o-mini'),

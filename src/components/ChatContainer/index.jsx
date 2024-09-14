@@ -10,7 +10,7 @@ import { useChat } from 'ai/react';
 
 export const ChatContainer = () => {
 
-    const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, stop, reload } = useChat()
+    const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, stop, reload, error } = useChat()
     const handleDelete = (id) => {
         setMessages(messages.filter(message => message.id !== id))
     }
@@ -29,6 +29,16 @@ export const ChatContainer = () => {
                 <Loader />
                 <StopButton onClick={stop} />
             </div>}
+
+            {error && (
+                <>
+                    <div>Ops! Alguma coisa deu errado.</div>
+                    <button type="button" onClick={() => reload()}>
+                        Tentar novamente
+                    </button>
+                </>
+            )}
+
             <button onClick={reload} disabled={isLoading}>
                 Gerar outra resposta
             </button>
